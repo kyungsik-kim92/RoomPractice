@@ -3,6 +3,7 @@ package com.application.roompractice.view
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.application.roompractice.R
@@ -10,6 +11,15 @@ import com.application.roompractice.db.Entity.NumberEntity
 
 class CustomAdapter(private val dataSet: ArrayList<NumberEntity>) :
     RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
+
+
+    interface ItemClick{
+        fun onClick(view: View,position: Int)
+
+    }
+
+    var updateClick : ItemClick? = null
+    var deleteClick : ItemClick? = null
 
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -35,6 +45,15 @@ class CustomAdapter(private val dataSet: ArrayList<NumberEntity>) :
 
         holder.idArea.text = dataSet[position].id.toString()
         holder.randomNum.text = dataSet[position].randomNumber
+
+        holder.itemView.findViewById<Button>(R.id.update).setOnClickListener { v ->
+            updateClick?.onClick(v,position)
+        }
+
+        holder.itemView.findViewById<Button>(R.id.delete).setOnClickListener { v ->
+            deleteClick?.onClick(v,position)
+        }
+
 
     }
 

@@ -28,11 +28,19 @@ class MainViewModel : ViewModel() {
 
     }
 
-    fun update() {
+    fun update(numberEntity: NumberEntity) = viewModelScope.launch (Dispatchers.IO){
+
+        val ranNumber = (0..100).random().toString()
+        numberEntity.randomNumber = "updated : $ranNumber"
+
+        repository.update(numberEntity)
+
 
     }
 
-    fun delete() {
+    fun delete(numberEntity: NumberEntity)  =viewModelScope.launch(Dispatchers.IO){
+
+        repository.delete(numberEntity)
 
     }
 
